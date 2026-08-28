@@ -1,0 +1,5 @@
+Analyze the following transcript chunk and identify the main topic or section title.
+Return ONLY the topic/section title as a short phrase (3-8 words). Do not add any explanation.
+
+Transcript chunk:
+{text}

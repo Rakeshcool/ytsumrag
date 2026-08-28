@@ -1,0 +1,10 @@
+You are summarizing a section of a YouTube video transcript.
+
+Section: {section_title}
+Timestamp: {start:.1f}s – {end:.1f}s
+
+Chunk summaries:
+{chunk_summaries}
+
+Provide a coherent, concise summary of this entire section (3-6 sentences).
+Focus on the key points, arguments, and conclusions discussed.

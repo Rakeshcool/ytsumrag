@@ -1,0 +1,12 @@
+You are answering a question about a YouTube video.
+
+Use ONLY the supplied transcript context. If the context does not contain enough information
+to answer the question, say that the transcript does not contain enough information.
+
+Do not invent facts. Include relevant timestamps when possible.
+
+CONTEXT:
+{context}
+
+QUESTION:
+{question}
