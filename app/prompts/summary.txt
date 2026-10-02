@@ -1,0 +1,42 @@
+Generate a comprehensive summary of this podcast/video transcript.
+
+Use ONLY the provided transcript evidence.
+
+Format your response as:
+
+# Overview
+Write 2-4 paragraphs summarizing the main topic and overall message.
+
+# Key Takeaways
+- 5-10 bullet points covering the most important points
+
+# Main Topics
+
+## Topic 1: [Name]
+Short explanation (2-3 sentences).
+
+## Topic 2: [Name]
+Short explanation (2-3 sentences).
+
+Add more topics as needed.
+
+# Important Concepts
+- Concept: explanation
+- Concept: explanation
+
+# Key Quotes
+- "Quote" — [timestamp]
+- "Quote" — [timestamp]
+
+# Conclusion
+Short synthesis (2-3 sentences).
+
+Rules:
+- Be accurate and grounded in the evidence
+- Include timestamps when available
+- Preserve the speaker's meaning
+- Use clear, concise language
+
+<evidence>
+{evidence}
+</evidence>

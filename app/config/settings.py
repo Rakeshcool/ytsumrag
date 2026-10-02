@@ -48,8 +48,11 @@ class Settings(BaseSettings):
     whisper_compute_type: str = "float16"
 
     # ── Chunking ────────────────────────────────────────────────────
+    chunk_min_tokens: int = 300
     chunk_max_tokens: int = 700
     chunk_overlap_tokens: int = 100
+    semantic_chunk_threshold: float = 0.3
+    semantic_chunk_min_sentences: int = 3
 
     # ── Retrieval ───────────────────────────────────────────────────
     retrieval_top_k: int = 20
@@ -66,6 +69,9 @@ class Settings(BaseSettings):
     model_server_startup_timeout: int = 120
     model_server_health_interval: float = 0.5
     model_server_shutdown_timeout: int = 15
+
+    # ── Cleanup ─────────────────────────────────────────────────────
+    auto_cleanup_audio: bool = True
 
 
 settings = Settings()

@@ -6,8 +6,8 @@ import logging
 from contextlib import asynccontextmanager
 
 from fastapi import FastAPI
+from fastapi.staticfiles import StaticFiles
 
-from app.api.chat import router as chat_router
 from app.api.videos import router as videos_router
 from app.config.settings import settings
 from app.model_servers.manager import model_server_manager
@@ -73,7 +73,9 @@ app = FastAPI(
 )
 
 app.include_router(videos_router)
-app.include_router(chat_router)
+
+# Serve web UI
+app.mount("/app", StaticFiles(directory="app/static", html=True), name="static")
 
 
 @app.get("/health", response_model=HealthResponse)

@@ -1,15 +1,15 @@
-"""Unit tests for transcript chunking."""
+"""Unit tests for speaker-aware transcript chunking."""
 
 from __future__ import annotations
 
 import os
 
 # Set env vars before importing app modules
+os.environ.setdefault("CHUNK_MIN_TOKENS", "10")
 os.environ.setdefault("CHUNK_MAX_TOKENS", "50")
-os.environ.setdefault("CHUNK_OVERLAP_TOKENS", "10")
 
 from app.models.schemas import Transcript, TranscriptSegment
-from app.processing.chunker import chunk_transcript
+from app.processing.speaker_chunker import chunk_transcript
 
 
 def _make_transcript(segments_data: list[tuple[float, float, str]]) -> Transcript:
@@ -45,7 +45,7 @@ def test_multiple_segments_produce_chunks():
     # All chunks should have the same video_id
     for c in chunks:
         assert c.video_id == "test123"
-        assert c.chunk_id.startswith("chunk_")
+        assert c.chunk_id.startswith("test123_")
 
 
 def test_chunk_preserves_timestamps():

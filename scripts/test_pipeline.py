@@ -24,7 +24,7 @@ YOUTUBE_URL = "https://www.youtube.com/watch?v=QRZ_tQ1wqV8"
 
 async def main() -> None:
     from app.model_servers.manager import model_server_manager
-    from app.services.pipeline import ingest_video, answer_question
+    from app.services.pipeline import answer_question, ingest_video
     from app.vectorstore.qdrant import vector_store
 
     url = sys.argv[1] if len(sys.argv) > 1 else YOUTUBE_URL
@@ -45,7 +45,7 @@ async def main() -> None:
 
     try:
         record = await ingest_video(url)
-        print(f"\n[OK] Ingestion complete!")
+        print("\n[OK] Ingestion complete!")
         print(f"  Video ID : {record.metadata.video_id}")
         print(f"  Title    : {record.metadata.title}")
         print(f"  Status   : {record.status.value}")
@@ -54,7 +54,7 @@ async def main() -> None:
         print(f"  Sections : {len(record.sections or [])}")
 
         if record.summary:
-            print(f"\n--- Summary (first 500 chars) ---")
+            print("\n--- Summary (first 500 chars) ---")
             print(record.summary[:500])
             print("...\n")
 

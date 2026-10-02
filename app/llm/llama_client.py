@@ -11,6 +11,8 @@ from app.model_servers.manager import model_server_manager
 
 logger = logging.getLogger(__name__)
 
+_MAX_RETRIES = 2
+
 
 class LlamaClient:
     """Async client for the local generation llama-server (OpenAI-compatible API)."""
@@ -35,16 +37,30 @@ class LlamaClient:
             "stream": False,
         }
 
-        async with httpx.AsyncClient(timeout=300.0) as client:
-            resp = await client.post(
-                f"{self._base_url}/v1/chat/completions",
-                json=payload,
-            )
-            resp.raise_for_status()
+        for attempt in range(_MAX_RETRIES):
+            async with httpx.AsyncClient(timeout=300.0) as client:
+                resp = await client.post(
+                    f"{self._base_url}/v1/chat/completions",
+                    json=payload,
+                )
+                resp.raise_for_status()
 
-        result = resp.json()
-        content = result["choices"][0]["message"]["content"]
-        return content
+            result = resp.json()
+            content = result["choices"][0]["message"]["content"]
+
+            if content and content.strip():
+                return content
+
+            # Empty content — retry
+            logger.warning(
+                "LLM returned empty content (attempt %d/%d), retrying...",
+                attempt + 1,
+                _MAX_RETRIES,
+            )
+
+        # All retries exhausted
+        logger.error("LLM returned empty content after %d attempts", _MAX_RETRIES)
+        return ""
 
     async def generate(self, prompt: str, system_prompt: str = "", **kwargs) -> str:
         """Convenience method: build messages list and call chat_completion."""
