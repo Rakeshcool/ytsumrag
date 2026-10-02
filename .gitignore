@@ -19,6 +19,7 @@ data/transcripts/
 data/summaries/
 data/cache/
 data/logs/
+.freebuff/
 
 # IDE
 .vscode/
